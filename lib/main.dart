@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_exploration/list_tile_tutorial_page.dart';
 import 'package:flutter_exploration/new_home_page.dart';
 
 // import 'ListTileTutorial.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: NewHomePage(title: 'Flutter Demo Home Page'),
+      home: ListTileTutorialPage(),
     );
   }
 }
