@@ -7,8 +7,12 @@ class ListTileTutorialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          'Squaring the Index Value',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
-        title: const Text('Squaring the index value'),
+        backgroundColor: Colors.deepPurple,
       ),
       body: Center(
         child: SizedBox(
