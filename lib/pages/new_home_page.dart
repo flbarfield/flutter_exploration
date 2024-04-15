@@ -17,15 +17,24 @@ class NewHomePage extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
       ),
       body: Center(
-        child: ElevatedButton(
-          child: const Text('List Title Tutorial'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const ListTileTutorialPage()),
-            );
-          },
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: const Text('List Title Tutorial'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ListTileTutorialPage()),
+                );
+              },
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  // to be implemented
+                },
+                child: const Text('To Be Implemented')),
+          ],
         ),
       ),
     );
