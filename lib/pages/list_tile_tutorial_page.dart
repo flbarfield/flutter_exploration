@@ -8,7 +8,7 @@ class ListTileTutorialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.purple[50],
-      appBar: const CustomAppBar(inputTitle: 'Squares index by itself'),
+      appBar: const CustomAppBar(inputTitle: 'Squares index for item num'),
       body: Center(
         child: SizedBox(
           width: 200,
