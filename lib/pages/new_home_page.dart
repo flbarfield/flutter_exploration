@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
+import 'package:flutter_exploration/pages/calculator.dart';
 import 'list_tile_tutorial_page.dart';
 
 class NewHomePage extends StatelessWidget {
@@ -29,9 +30,14 @@ class NewHomePage extends StatelessWidget {
               const SizedBox(height: 10),
               ElevatedButton(
                   onPressed: () {
-                    // to be implemented
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CalculatorPage(),
+                      ),
+                    );
                   },
-                  child: const Text('To Be Implemented')),
+                  child: const Text('Calculator')),
             ],
           ),
         ),
