@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_exploration/custom_app_bar.dart';
 import 'list_tile_tutorial_page.dart';
 
 class NewHomePage extends StatelessWidget {
-  NewHomePage({super.key, required this.title});
-  final String title;
+  const NewHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Small Learning Apps',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-              child: const Text('List Title Tutorial'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ListTileTutorialPage()),
-                );
-              },
-            ),
-            ElevatedButton(
+      backgroundColor: Colors.purple[50],
+      appBar: const CustomAppBar(inputTitle: 'Small Learning Apps'),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                child: const Text('List Title Tutorial'),
                 onPressed: () {
-                  // to be implemented
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ListTileTutorialPage(),
+                    ),
+                  );
                 },
-                child: const Text('To Be Implemented')),
-          ],
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    // to be implemented
+                  },
+                  child: const Text('To Be Implemented')),
+            ],
+          ),
         ),
       ),
     );
