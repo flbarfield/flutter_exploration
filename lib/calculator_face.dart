@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exploration/calculator_button.dart';
 
-import 'calculator_screen.dart';
-
 class CalculatorFace extends StatelessWidget {
   const CalculatorFace({
     super.key,
@@ -27,45 +25,31 @@ class CalculatorFace extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 35),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      CalculatorButton(
-                        inputButton: 1,
-                      ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 2,
-                      ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 3,
-                      ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 4,
-                      ),
+                      for (var i = 1; i < 5; i++)
+                        Row(
+                          children: [
+                            CalculatorButton(
+                              inputButton: i,
+                            ),
+                            const SizedBox(width: 10),
+                          ],
+                        ),
                     ],
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      CalculatorButton(
-                        inputButton: 5,
-                      ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 6,
-                      ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 7,
-                      ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 8,
-                      ),
+                      for (var i = 5; i < 9; i++)
+                        Row(
+                          children: [
+                            CalculatorButton(inputButton: i),
+                            const SizedBox(width: 10),
+                          ],
+                        ),
                     ],
                   ),
                 ),
@@ -103,6 +87,41 @@ class CalculatorFace extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CalculatorScreen extends StatefulWidget {
+  const CalculatorScreen({
+    super.key,
+  });
+
+  @override
+  State<CalculatorScreen> createState() => _CalculatorScreenState();
+}
+
+class _CalculatorScreenState extends State<CalculatorScreen> {
+  final _userInput = '0';
+
+  // void changeUserInput(() {
+  //   userInput
+  // });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      width: 250,
+      child: Center(
+        child: Text(
+          _userInput,
+          style: const TextStyle(
+            backgroundColor: Colors.white,
+            height: 2.5,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
