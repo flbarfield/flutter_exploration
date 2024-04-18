@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorFace extends StatefulWidget {
   const CalculatorFace({super.key});
@@ -10,6 +11,23 @@ class CalculatorFace extends StatefulWidget {
 class _CalculatorFaceState extends State<CalculatorFace> {
   String _userInput = '';
   String _userOperator = '';
+  String _userInput2 = '';
+
+  Parser p = Parser();
+  ContextModel cm = ContextModel();
+
+  int calculateEquation(num1, num2, operator) {
+    print(p.parse('$num1$operator$num2').evaluate(EvaluationType.REAL, cm));
+    return (p.parse('$num1$operator$num2').evaluate(EvaluationType.REAL, cm));
+  }
+
+  void setInputs() {
+    //TODO:
+    // if num 1 is null, set num1 with first number set
+    // if an operator is pressed and num 1 is present, next set of nums will be num2
+    // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
+    // if an = is pressed, evalutate num 1 and num 2
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,23 +120,37 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          _userInput = '+';
+                          setState(() {
+                            _userOperator = '+';
+                          });
                         },
                         child: const Text('+'),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _userOperator = '-';
+                          });
+                        },
                         child: const Text('-'),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _userOperator = '/';
+                          });
+                        },
                         child: const Text('/'),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _userOperator = '*';
+                          });
+                        },
                         child: const Text('x'),
                       ),
                     ],
@@ -130,7 +162,9 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                     SizedBox(
                       width: 100,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          calculateEquation('5', '6', '*');
+                        },
                         child: const Text('='),
                       ),
                     ),
