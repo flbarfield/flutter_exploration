@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exploration/calculator_button.dart';
 
-class CalculatorFace extends StatelessWidget {
-  const CalculatorFace({
-    super.key,
-  });
+class CalculatorFace extends StatefulWidget {
+  const CalculatorFace({super.key});
+
+  @override
+  State<CalculatorFace> createState() => _CalculatorFaceState();
+}
+
+class _CalculatorFaceState extends State<CalculatorFace> {
+  String _userInput = '';
+  String _userOperator = '';
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +24,11 @@ class CalculatorFace extends StatelessWidget {
             padding: const EdgeInsets.only(left: 25, top: 20),
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: CalculatorScreen(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: CalculatorScreen(
+                    userInput: _userInput,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 35),
@@ -30,8 +37,13 @@ class CalculatorFace extends StatelessWidget {
                       for (var i = 1; i < 5; i++)
                         Row(
                           children: [
-                            CalculatorButton(
-                              inputButton: i,
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _userInput = '$_userInput$i';
+                                });
+                              },
+                              child: Text('$i'),
                             ),
                             const SizedBox(width: 10),
                           ],
@@ -46,7 +58,14 @@ class CalculatorFace extends StatelessWidget {
                       for (var i = 5; i < 9; i++)
                         Row(
                           children: [
-                            CalculatorButton(inputButton: i),
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _userInput = '$_userInput$i';
+                                });
+                              },
+                              child: Text('$i'),
+                            ),
                             const SizedBox(width: 10),
                           ],
                         ),
@@ -55,34 +74,80 @@ class CalculatorFace extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  child: const CalculatorButton(
-                    inputButton: 9,
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _userInput = '${_userInput}9';
+                          });
+                        },
+                        child: const Text('9'),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _userInput = '${_userInput}0';
+                          });
+                        },
+                        child: const Text('0'),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 30),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      CalculatorButton(
-                        inputButton: '+',
+                      ElevatedButton(
+                        onPressed: () {
+                          _userInput = '+';
+                        },
+                        child: const Text('+'),
                       ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: '-',
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('-'),
                       ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: '/',
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('/'),
                       ),
-                      SizedBox(width: 10),
-                      CalculatorButton(
-                        inputButton: 'x',
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('x'),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                const CalculatorButton(inputButton: '='),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('='),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _userInput = '';
+                          });
+                        },
+                        child: const Text('CLEAR'),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -92,21 +157,13 @@ class CalculatorFace extends StatelessWidget {
   }
 }
 
-class CalculatorScreen extends StatefulWidget {
+class CalculatorScreen extends StatelessWidget {
+  final String userInput;
+
   const CalculatorScreen({
     super.key,
+    required this.userInput,
   });
-
-  @override
-  State<CalculatorScreen> createState() => _CalculatorScreenState();
-}
-
-class _CalculatorScreenState extends State<CalculatorScreen> {
-  final _userInput = '0';
-
-  // void changeUserInput(() {
-  //   userInput
-  // });
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +172,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       width: 250,
       child: Center(
         child: Text(
-          _userInput,
+          userInput,
           style: const TextStyle(
             backgroundColor: Colors.white,
             height: 2.5,
