@@ -9,24 +9,72 @@ class CalculatorFace extends StatefulWidget {
 }
 
 class _CalculatorFaceState extends State<CalculatorFace> {
-  String _userInput = '';
-  String _userOperator = '';
-  String _userInput2 = '';
+  String _userScreenInput = '';
 
+  var currentInputItems = [];
+  var currentOperator = '';
+
+  final Map<String, int> calculatorDigits = {
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    '0': 0
+  };
+
+  final Map<String, bool> calculatorOperators = {
+    '*': true,
+    '/': true,
+    '+': true,
+    '-': true
+  };
+
+  // for math_evaluation package
   Parser p = Parser();
   ContextModel cm = ContextModel();
 
-  int calculateEquation(num1, num2, operator) {
-    print(p.parse('$num1$operator$num2').evaluate(EvaluationType.REAL, cm));
-    return (p.parse('$num1$operator$num2').evaluate(EvaluationType.REAL, cm));
+  dynamic calculateEquation() {
+    if (currentInputItems.isEmpty) {
+      return 0;
+    }
+    print(p
+        .parse('${currentInputItems[0]}$currentOperator${currentInputItems[1]}')
+        .evaluate(EvaluationType.REAL, cm));
+    return p
+        .parse('${currentInputItems[0]}$currentOperator${currentInputItems[1]}')
+        .evaluate(EvaluationType.REAL, cm);
   }
 
-  void setInputs() {
+  void setInputs(String keyPressed) {
     //TODO:
-    // if num 1 is null, set num1 with first number set
+
     // if an operator is pressed and num 1 is present, next set of nums will be num2
+    if (calculatorOperators.containsKey(keyPressed) &&
+        currentInputItems[0] != null) {
+      currentInputItems[1] = keyPressed;
+    }
     // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
+    if (calculatorOperators.containsKey(keyPressed) &&
+        currentInputItems[0] != null &&
+        currentInputItems[1] != null) {
+      setState(() {
+        _userScreenInput = calculateEquation();
+      });
+      currentInputItems[0] = _userScreenInput;
+    }
     // if an = is pressed, evalutate num 1 and num 2
+    // if (keyPressed == '='){
+    //   _userScreenInput p.parse('${numList[1] }')
+    // }
+    // if num 1 is null, set num1 with first number set
+    // if (!numList[0]) {
+    //   numList.add(keyPressed)
+    // } else if (){}
   }
 
   @override
@@ -45,7 +93,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: CalculatorScreen(
-                    userInput: _userInput,
+                    userInput: _userScreenInput,
                   ),
                 ),
                 Container(
@@ -58,7 +106,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                             ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  _userInput = '$_userInput$i';
+                                  _userScreenInput = '$_userScreenInput$i';
                                 });
                               },
                               child: Text('$i'),
@@ -79,7 +127,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                             ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  _userInput = '$_userInput$i';
+                                  _userScreenInput = '$_userScreenInput$i';
                                 });
                               },
                               child: Text('$i'),
@@ -97,7 +145,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userInput = '${_userInput}9';
+                            _userScreenInput = '${_userScreenInput}9';
                           });
                         },
                         child: const Text('9'),
@@ -106,7 +154,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userInput = '${_userInput}0';
+                            _userScreenInput = '${_userScreenInput}0';
                           });
                         },
                         child: const Text('0'),
@@ -121,7 +169,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userOperator = '+';
+                            currentOperator = '+';
                           });
                         },
                         child: const Text('+'),
@@ -130,7 +178,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userOperator = '-';
+                            currentOperator = '-';
                           });
                         },
                         child: const Text('-'),
@@ -139,7 +187,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userOperator = '/';
+                            currentOperator = '/';
                           });
                         },
                         child: const Text('/'),
@@ -148,7 +196,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userOperator = '*';
+                            currentOperator = '*';
                           });
                         },
                         child: const Text('x'),
@@ -163,7 +211,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       width: 100,
                       child: ElevatedButton(
                         onPressed: () {
-                          calculateEquation('5', '6', '*');
+                          calculateEquation();
                         },
                         child: const Text('='),
                       ),
@@ -174,7 +222,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _userInput = '';
+                            _userScreenInput = '';
                           });
                         },
                         child: const Text('CLEAR'),
