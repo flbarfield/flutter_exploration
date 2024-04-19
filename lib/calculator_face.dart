@@ -11,8 +11,9 @@ class CalculatorFace extends StatefulWidget {
 class _CalculatorFaceState extends State<CalculatorFace> {
   String _userScreenInput = '';
 
-  var currentInputItems = [];
   var currentOperator = '';
+  String numInput1 = '';
+  String numInput2 = '';
 
   final Map<String, int> calculatorDigits = {
     '1': 1,
@@ -39,42 +40,76 @@ class _CalculatorFaceState extends State<CalculatorFace> {
   ContextModel cm = ContextModel();
 
   dynamic calculateEquation() {
-    if (currentInputItems.isEmpty) {
-      return 0;
+    if (numInput1 == '') {
+      return '';
     }
-    print(p
-        .parse('${currentInputItems[0]}$currentOperator${currentInputItems[1]}')
-        .evaluate(EvaluationType.REAL, cm));
+
+    if (numInput1 != '' && numInput2 == '') {
+      return numInput1;
+    }
+
     return p
-        .parse('${currentInputItems[0]}$currentOperator${currentInputItems[1]}')
-        .evaluate(EvaluationType.REAL, cm);
+        .parse('$numInput1$currentOperator$numInput2')
+        .evaluate(EvaluationType.REAL, cm)
+        .toString();
   }
 
   void setInputs(String keyPressed) {
-    //TODO:
-
-    // if an operator is pressed and num 1 is present, next set of nums will be num2
-    if (calculatorOperators.containsKey(keyPressed) &&
-        currentInputItems[0] != null) {
-      currentInputItems[1] = keyPressed;
+    if (keyPressed == 'CLEAR') {
+      numInput1 = '';
+      numInput2 = '';
+      currentOperator = '';
+      setState(() {
+        _userScreenInput = '';
+      });
+      return;
     }
-    // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
-    if (calculatorOperators.containsKey(keyPressed) &&
-        currentInputItems[0] != null &&
-        currentInputItems[1] != null) {
+
+    // if num 1 is null, set num1 with first number set
+    if (currentOperator == '') {
+      numInput1 = '$numInput1$keyPressed';
+      setState(() {
+        _userScreenInput = numInput1;
+      });
+    }
+
+    // if an = is pressed, evalutate num 1 and num 2
+    if (keyPressed == '=') {
       setState(() {
         _userScreenInput = calculateEquation();
       });
-      currentInputItems[0] = _userScreenInput;
+      numInput1 = _userScreenInput;
+      numInput2 = '';
+      return;
     }
-    // if an = is pressed, evalutate num 1 and num 2
-    // if (keyPressed == '='){
-    //   _userScreenInput p.parse('${numList[1] }')
+
+    // if an operator is pressed and num 1 is present, next set of nums will be num2
+    if (currentOperator != '') {
+      numInput2 = '$numInput2$keyPressed';
+      setState(() {
+        _userScreenInput = numInput2;
+      });
+    }
+
+    // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
+    if (currentOperator != '' &&
+        calculatorOperators.containsKey(keyPressed) == true &&
+        numInput1 != '' &&
+        numInput2 != '') {
+      setState(() {
+        _userScreenInput = calculateEquation().toString();
+      });
+      numInput1 = _userScreenInput;
+    }
+
+    // if an = is pressed and no num2, return num 1
+    // if (keyPressed == '=' &&
+    //     currentInputItems[1] == null &&
+    //     currentInputItems[0] != null) {
+    //   setState(() {
+    //     _userScreenInput = currentInputItems[0];
+    //   });
     // }
-    // if num 1 is null, set num1 with first number set
-    // if (!numList[0]) {
-    //   numList.add(keyPressed)
-    // } else if (){}
   }
 
   @override
@@ -84,154 +119,136 @@ class _CalculatorFaceState extends State<CalculatorFace> {
       width: 300,
       height: 340,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 25, top: 20),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: CalculatorScreen(
-                    userInput: _userScreenInput,
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: CalculatorScreen(
+                  userInput: _userScreenInput,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 35),
-                  child: Row(
-                    children: [
-                      for (var i = 1; i < 5; i++)
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  _userScreenInput = '$_userScreenInput$i';
-                                });
-                              },
-                              child: Text('$i'),
-                            ),
-                            const SizedBox(width: 10),
-                          ],
-                        ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    children: [
-                      for (var i = 5; i < 9; i++)
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  _userScreenInput = '$_userScreenInput$i';
-                                });
-                              },
-                              child: Text('$i'),
-                            ),
-                            const SizedBox(width: 10),
-                          ],
-                        ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _userScreenInput = '${_userScreenInput}9';
-                          });
-                        },
-                        child: const Text('9'),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _userScreenInput = '${_userScreenInput}0';
-                          });
-                        },
-                        child: const Text('0'),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            currentOperator = '+';
-                          });
-                        },
-                        child: const Text('+'),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            currentOperator = '-';
-                          });
-                        },
-                        child: const Text('-'),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            currentOperator = '/';
-                          });
-                        },
-                        child: const Text('/'),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            currentOperator = '*';
-                          });
-                        },
-                        child: const Text('x'),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 35),
+                child: Row(
                   children: [
-                    SizedBox(
-                      width: 100,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          calculateEquation();
-                        },
-                        child: const Text('='),
+                    for (var i = 1; i < 5; i++)
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              setInputs('$i');
+                            },
+                            child: Text('$i'),
+                          ),
+                          const SizedBox(width: 10),
+                        ],
                       ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: Row(
+                  children: [
+                    for (var i = 5; i < 9; i++)
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              setInputs('$i');
+                            },
+                            child: Text('$i'),
+                          ),
+                          const SizedBox(width: 10),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setInputs('9');
+                      },
+                      child: const Text('9'),
                     ),
                     const SizedBox(width: 10),
-                    SizedBox(
-                      width: 100,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _userScreenInput = '';
-                          });
-                        },
-                        child: const Text('CLEAR'),
-                      ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setInputs('0');
+                      },
+                      child: const Text('0'),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 30),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        currentOperator = '+';
+                      },
+                      child: const Text('+'),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        currentOperator = '-';
+                      },
+                      child: const Text('-'),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        currentOperator = '/';
+                      },
+                      child: const Text('/'),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        currentOperator = '*';
+                      },
+                      child: const Text('x'),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setInputs('=');
+                      },
+                      child: const Text('='),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setInputs('CLEAR');
+                      },
+                      child: const Text('CLEAR'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
