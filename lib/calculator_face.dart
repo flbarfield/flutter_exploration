@@ -10,7 +10,7 @@ class CalculatorFace extends StatefulWidget {
 class _CalculatorFaceState extends State<CalculatorFace> {
   String _userScreenInput = '';
 
-  var _currentOperator = '';
+  String _currentOperator = '';
   String _numInput1 = '';
   String _numInput2 = '';
 
@@ -101,9 +101,12 @@ class _CalculatorFaceState extends State<CalculatorFace> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepPurple[300],
       width: 300,
       height: 340,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.deepPurple[300],
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -262,6 +265,7 @@ class CalculatorScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             height: 2.5,
             fontWeight: FontWeight.bold,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),
