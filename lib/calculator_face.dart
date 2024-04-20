@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorFace extends StatefulWidget {
   const CalculatorFace({super.key});
@@ -11,54 +10,61 @@ class CalculatorFace extends StatefulWidget {
 class _CalculatorFaceState extends State<CalculatorFace> {
   String _userScreenInput = '';
 
-  var currentOperator = '';
-  String numInput1 = '';
-  String numInput2 = '';
+  var _currentOperator = '';
+  String _numInput1 = '';
+  String _numInput2 = '';
 
-  final Map<String, int> calculatorDigits = {
-    '1': 1,
-    '2': 2,
-    '3': 3,
-    '4': 4,
-    '5': 5,
-    '6': 6,
-    '7': 7,
-    '8': 8,
-    '9': 9,
-    '0': 0
-  };
+  String addNums() {
+    num total = (int.parse(_numInput1) + int.parse(_numInput2));
+    return total.toString();
+  }
 
-  final Map<String, bool> calculatorOperators = {
-    '*': true,
-    '/': true,
-    '+': true,
-    '-': true
-  };
+  String multiplyNums() {
+    num total = (int.parse(_numInput1) * int.parse(_numInput2));
+    return total.toString();
+  }
 
-  // for math_evaluation package
-  Parser p = Parser();
-  ContextModel cm = ContextModel();
+  String divideNums() {
+    num total = (int.parse(_numInput1) / int.parse(_numInput2));
+    return total.toString();
+  }
+
+  String subtractNums() {
+    num total = (int.parse(_numInput1) - int.parse(_numInput2));
+    return total.toString();
+  }
 
   String calculateEquation() {
-    if (numInput1 == '') {
-      return '';
+    if (_numInput1.isNotEmpty && _numInput2.isNotEmpty) {
+      switch (_currentOperator) {
+        case '*':
+          return multiplyNums();
+
+        case '/':
+          return divideNums();
+
+        case '-':
+          return subtractNums();
+
+        case '+':
+          return addNums();
+
+        default:
+          return '';
+      }
     }
 
-    if (numInput1 != '' && numInput2 == '') {
-      return numInput1;
+    if (_numInput1.isNotEmpty && _numInput2.isEmpty) {
+      return _numInput1.toString();
     }
-
-    return p
-        .parse('$numInput1$currentOperator$numInput2')
-        .evaluate(EvaluationType.REAL, cm)
-        .toString();
+    return '';
   }
 
   void setInputs(String keyPressed) {
     if (keyPressed == 'CLEAR') {
-      numInput1 = '';
-      numInput2 = '';
-      currentOperator = '';
+      _numInput1 = '';
+      _numInput2 = '';
+      _currentOperator = '';
       setState(() {
         _userScreenInput = '';
       });
@@ -66,10 +72,10 @@ class _CalculatorFaceState extends State<CalculatorFace> {
     }
 
     // if num 1 is null, set num1 with first number set
-    if (currentOperator.isEmpty) {
-      numInput1 = '$numInput1$keyPressed';
+    if (_currentOperator.isEmpty) {
+      _numInput1 = '$_numInput1$keyPressed';
       setState(() {
-        _userScreenInput = numInput1;
+        _userScreenInput = _numInput1;
       });
     }
 
@@ -78,29 +84,16 @@ class _CalculatorFaceState extends State<CalculatorFace> {
       setState(() {
         _userScreenInput = calculateEquation();
       });
-      numInput1 = _userScreenInput;
-      numInput2 = '';
+      _numInput1 = _userScreenInput;
+      _numInput2 = '';
       return;
     }
 
-    // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
-    // if (currentOperator != '' &&
-    //     calculatorOperators.containsKey(keyPressed) == true &&
-    //     numInput2 != '' &&
-    //     numInput1 != '') {
-    //   setState(() {
-    //     _userScreenInput = calculateEquation();
-    //   });
-    //   numInput1 = _userScreenInput;
-    //   numInput2 = '';
-    //   print(calculatorOperators.containsKey(keyPressed));
-    // }
-
     // if an operator is pressed and num 1 is present, next set of nums will be num2
-    if (currentOperator.isNotEmpty) {
-      numInput2 = '$numInput2$keyPressed';
+    if (_currentOperator.isNotEmpty) {
+      _numInput2 = '$_numInput2$keyPressed';
       setState(() {
-        _userScreenInput = numInput2;
+        _userScreenInput = _numInput2;
       });
     }
   }
@@ -189,28 +182,28 @@ class _CalculatorFaceState extends State<CalculatorFace> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        currentOperator = '+';
+                        _currentOperator = '+';
                       },
                       child: const Text('+'),
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {
-                        currentOperator = '-';
+                        _currentOperator = '-';
                       },
                       child: const Text('-'),
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {
-                        currentOperator = '/';
+                        _currentOperator = '/';
                       },
                       child: const Text('/'),
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {
-                        currentOperator = '*';
+                        _currentOperator = '*';
                       },
                       child: const Text('x'),
                     ),
