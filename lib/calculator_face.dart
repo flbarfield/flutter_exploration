@@ -39,7 +39,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
   Parser p = Parser();
   ContextModel cm = ContextModel();
 
-  dynamic calculateEquation() {
+  String calculateEquation() {
     if (numInput1 == '') {
       return '';
     }
@@ -66,7 +66,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
     }
 
     // if num 1 is null, set num1 with first number set
-    if (currentOperator == '') {
+    if (currentOperator.isEmpty) {
       numInput1 = '$numInput1$keyPressed';
       setState(() {
         _userScreenInput = numInput1;
@@ -83,33 +83,26 @@ class _CalculatorFaceState extends State<CalculatorFace> {
       return;
     }
 
+    // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
+    // if (currentOperator != '' &&
+    //     calculatorOperators.containsKey(keyPressed) == true &&
+    //     numInput2 != '' &&
+    //     numInput1 != '') {
+    //   setState(() {
+    //     _userScreenInput = calculateEquation();
+    //   });
+    //   numInput1 = _userScreenInput;
+    //   numInput2 = '';
+    //   print(calculatorOperators.containsKey(keyPressed));
+    // }
+
     // if an operator is pressed and num 1 is present, next set of nums will be num2
-    if (currentOperator != '') {
+    if (currentOperator.isNotEmpty) {
       numInput2 = '$numInput2$keyPressed';
       setState(() {
         _userScreenInput = numInput2;
       });
     }
-
-    // if an operator is pressed again while both nums have values, evaluate and assign to num 1,
-    if (currentOperator != '' &&
-        calculatorOperators.containsKey(keyPressed) == true &&
-        numInput1 != '' &&
-        numInput2 != '') {
-      setState(() {
-        _userScreenInput = calculateEquation().toString();
-      });
-      numInput1 = _userScreenInput;
-    }
-
-    // if an = is pressed and no num2, return num 1
-    // if (keyPressed == '=' &&
-    //     currentInputItems[1] == null &&
-    //     currentInputItems[0] != null) {
-    //   setState(() {
-    //     _userScreenInput = currentInputItems[0];
-    //   });
-    // }
   }
 
   @override
