@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exploration/counter_view.dart';
-import 'package:flutter_exploration/pages/new_home_page.dart';
-
-import 'package:bloc/bloc.dart';
 import 'package:flutter_exploration/counter_observer.dart';
-
-// import 'ListTileTutorial.dart';
+import 'package:flutter_exploration/pages/new_home_page.dart';
+import 'package:bloc/bloc.dart';
 
 void main() {
-  // Pre-bloc code ------
+  Bloc.observer = const CounterObserver();
   runApp(const MyApp());
-  // -----------------------
-
-  // Post Bloc Code ---------------
-  // Bloc.observer = const CounterObserver();
-  // runApp(const CounterPage());
-  // --------------------------------
 }
-
-// --------------Pre-bloc code-------------------
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,11 +25,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//--------------------------------
-
-// Post Bloc Code ----------
-// class CounterApp extends MaterialApp {
-//   const CounterApp({super.key}) : super(home: const CounterPage());
-// }
-// -----------
