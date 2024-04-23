@@ -9,7 +9,6 @@ class CalculatorFace extends StatefulWidget {
 
 class _CalculatorFaceState extends State<CalculatorFace> {
   String _userScreenInput = '';
-
   String _currentOperator = '';
   String _numInput1 = '';
   String _numInput2 = '';
@@ -57,6 +56,7 @@ class _CalculatorFaceState extends State<CalculatorFace> {
     if (_numInput1.isNotEmpty && _numInput2.isEmpty) {
       return _numInput1.toString();
     }
+
     return '';
   }
 

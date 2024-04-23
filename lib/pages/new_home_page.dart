@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
-import 'package:flutter_exploration/pages/calculator.dart';
+import 'package:flutter_exploration/pages/calculator_page.dart';
+import 'package:flutter_exploration/pages/counter_page.dart';
 import 'list_tile_tutorial_page.dart';
 
 class NewHomePage extends StatelessWidget {
@@ -38,6 +39,17 @@ class NewHomePage extends StatelessWidget {
                     );
                   },
                   child: const Text('Calculator')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CounterPage(),
+                      ),
+                    );
+                  },
+                  child: const Text('Counter (Bloc Learning)')),
             ],
           ),
         ),
