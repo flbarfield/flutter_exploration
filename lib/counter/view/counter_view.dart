@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exploration/counter_cubit.dart';
+import 'package:flutter_exploration/counter/cubit/counter_cubit.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

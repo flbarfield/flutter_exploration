@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
-import 'package:flutter_exploration/pages/calculator_page.dart';
-import 'package:flutter_exploration/pages/counter_page.dart';
-import 'list_tile_tutorial_page.dart';
+import 'package:flutter_exploration/calculator/calculator_page.dart';
+import 'package:flutter_exploration/counter/view/counter_page.dart';
+import 'list_tile_tutorial/list_tile_tutorial_page.dart';
 
 class NewHomePage extends StatelessWidget {
   const NewHomePage({super.key});

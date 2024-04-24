@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exploration/counter_observer.dart';
-import 'package:flutter_exploration/pages/new_home_page.dart';
+import 'package:flutter_exploration/new_home_page.dart';
 import 'package:bloc/bloc.dart';
 
 void main() {
