@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
 import 'calculator_face.dart';
 
-class CalculatorPage extends StatelessWidget {
-  const CalculatorPage({super.key});
+class CalculatorView extends StatelessWidget {
+  const CalculatorView({super.key});
 
   @override
   Widget build(BuildContext context) {
