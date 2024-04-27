@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exploration/calculator/view/calculator_page.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
 import 'package:flutter_exploration/counter/view/counter_page.dart';
+import 'package:flutter_exploration/timer/view/timer_page.dart';
 import 'list_tile_tutorial/list_tile_tutorial_page.dart';
 
 class NewHomePage extends StatelessWidget {
@@ -56,7 +57,7 @@ class NewHomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CounterPage(),
+                        builder: (context) => const TimerPage(),
                       ),
                     );
                   },
