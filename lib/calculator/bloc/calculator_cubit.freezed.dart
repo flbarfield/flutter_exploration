@@ -93,7 +93,7 @@ abstract class _$$CalculatorStateImplCopyWith<$Res>
       String numInput2});
 }
 
-/// @nodoc
+// / @nodoc
 class __$$CalculatorStateImplCopyWithImpl<$Res>
     extends _$CalculatorStateCopyWithImpl<$Res, _$CalculatorStateImpl>
     implements _$$CalculatorStateImplCopyWith<$Res> {

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TimerState {
   num get currentTime => throw _privateConstructorUsedError;
+  bool get playPushed => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TimerStateCopyWith<TimerState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $TimerStateCopyWith<$Res> {
           TimerState value, $Res Function(TimerState) then) =
       _$TimerStateCopyWithImpl<$Res, TimerState>;
   @useResult
-  $Res call({num currentTime});
+  $Res call({num currentTime, bool playPushed});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$TimerStateCopyWithImpl<$Res, $Val extends TimerState>
   @override
   $Res call({
     Object? currentTime = null,
+    Object? playPushed = null,
   }) {
     return _then(_value.copyWith(
       currentTime: null == currentTime
           ? _value.currentTime
           : currentTime // ignore: cast_nullable_to_non_nullable
               as num,
+      playPushed: null == playPushed
+          ? _value.playPushed
+          : playPushed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$TimerStateImplCopyWith<$Res>
       __$$TimerStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({num currentTime});
+  $Res call({num currentTime, bool playPushed});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$TimerStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? currentTime = null,
+    Object? playPushed = null,
   }) {
     return _then(_$TimerStateImpl(
       currentTime: null == currentTime
           ? _value.currentTime
           : currentTime // ignore: cast_nullable_to_non_nullable
               as num,
+      playPushed: null == playPushed
+          ? _value.playPushed
+          : playPushed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -92,15 +103,18 @@ class __$$TimerStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TimerStateImpl implements _TimerState {
-  const _$TimerStateImpl({this.currentTime = 0});
+  const _$TimerStateImpl({this.currentTime = 0, this.playPushed = false});
 
   @override
   @JsonKey()
   final num currentTime;
+  @override
+  @JsonKey()
+  final bool playPushed;
 
   @override
   String toString() {
-    return 'TimerState(currentTime: $currentTime)';
+    return 'TimerState(currentTime: $currentTime, playPushed: $playPushed)';
   }
 
   @override
@@ -109,11 +123,13 @@ class _$TimerStateImpl implements _TimerState {
         (other.runtimeType == runtimeType &&
             other is _$TimerStateImpl &&
             (identical(other.currentTime, currentTime) ||
-                other.currentTime == currentTime));
+                other.currentTime == currentTime) &&
+            (identical(other.playPushed, playPushed) ||
+                other.playPushed == playPushed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentTime);
+  int get hashCode => Object.hash(runtimeType, currentTime, playPushed);
 
   @JsonKey(ignore: true)
   @override
@@ -123,10 +139,13 @@ class _$TimerStateImpl implements _TimerState {
 }
 
 abstract class _TimerState implements TimerState {
-  const factory _TimerState({final num currentTime}) = _$TimerStateImpl;
+  const factory _TimerState({final num currentTime, final bool playPushed}) =
+      _$TimerStateImpl;
 
   @override
   num get currentTime;
+  @override
+  bool get playPushed;
   @override
   @JsonKey(ignore: true)
   _$$TimerStateImplCopyWith<_$TimerStateImpl> get copyWith =>
