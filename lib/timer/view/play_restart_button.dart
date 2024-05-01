@@ -9,9 +9,11 @@ class PlayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TimerCubit, TimerState>(
       builder: (context, state) {
-        return const FloatingActionButton(
-          onPressed: null,
-          child: Icon(Icons.play_arrow),
+        return FloatingActionButton(
+          onPressed: () {
+            context.read<TimerCubit>().toggleControlButtons();
+          },
+          child: const Icon(Icons.play_arrow),
         );
       },
     );
@@ -25,13 +27,19 @@ class PauseRestartButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TimerCubit, TimerState>(
       builder: (context, state) {
-        return const Row(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FloatingActionButton(
-              onPressed: null,
-              child: Icon(Icons.pause),
+              onPressed: () {
+                context.read<TimerCubit>().toggleControlButtons();
+              },
+              child: const Icon(Icons.pause),
             ),
-            FloatingActionButton(
+            const SizedBox(
+              width: 20,
+            ),
+            const FloatingActionButton(
               onPressed: null,
               child: Icon(Icons.restart_alt),
             )

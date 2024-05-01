@@ -8,11 +8,11 @@ part 'timer_cubit.freezed.dart';
 class TimerCubit extends Cubit<TimerState> {
   TimerCubit() : super(const TimerState());
 
-  Widget displayControlButtons() {
+  dynamic toggleControlButtons() {
     if (state.playPushed) {
-      return const PauseRestartButtons();
+      emit(state.copyWith(playPushed: false));
     } else {
-      return const PlayButton();
+      emit(state.copyWith(playPushed: true));
     }
   }
 }
