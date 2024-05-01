@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_exploration/custom_app_bar.dart';
 import 'package:flutter_exploration/timer/bloc/timer_cubit.dart';
 import 'package:flutter_exploration/timer/view/play_restart_button.dart';
-import 'package:flutter_exploration/timer/bloc/timer_cubit.dart';
-import 'package:flutter_exploration/timer/view/play_restart_button.dart';
 
 class TimerView extends StatelessWidget {
   const TimerView({super.key});
@@ -12,7 +10,7 @@ class TimerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(inputTitle: 'Timer'),
+      appBar: const CustomAppBar(inputTitle: 'Timer'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,9 +25,9 @@ class TimerView extends StatelessWidget {
             BlocBuilder<TimerCubit, TimerState>(
               builder: (context, state) {
                 if (state.playPushed == false) {
-                  return PlayButton();
+                  return const PlayButton();
                 } else {
-                  return PauseRestartButtons();
+                  return const PauseRestartButtons();
                 }
               },
             )
