@@ -9,11 +9,16 @@ class PlayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TimerCubit, TimerState>(
       builder: (context, state) {
-        return FloatingActionButton(
-          onPressed: () {
-            context.read<TimerCubit>().toggleControlButtons();
-          },
-          child: const Icon(Icons.play_arrow),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                context.read<TimerCubit>().toggleControlButtons();
+              },
+              child: const Icon(Icons.play_arrow),
+            ),
+          ],
         );
       },
     );

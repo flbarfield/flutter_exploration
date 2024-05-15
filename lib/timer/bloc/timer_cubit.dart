@@ -6,11 +6,10 @@ part 'timer_cubit.freezed.dart';
 class TimerCubit extends Cubit<TimerState> {
   TimerCubit() : super(const TimerState());
 
-  // final ticker = {
-  //   Stream<int> tick({required int ticks}) {
-  //     return Stream.periodic(const Duration(seconds: 1), (x) => ticks - x - 1).take(ticks);
-  //   }
-  // };
+  Stream<int> tick({required int ticks}) {
+    return Stream.periodic(const Duration(seconds: 1), (x) => ticks - x - 1)
+        .take(ticks);
+  }
 
   void toggleControlButtons() {
     if (state.playPushed) {
@@ -19,6 +18,4 @@ class TimerCubit extends Cubit<TimerState> {
       emit(state.copyWith(playPushed: true));
     }
   }
-
-  // void ticker() {}
 }

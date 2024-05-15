@@ -103,7 +103,7 @@ class __$$TimerStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TimerStateImpl implements _TimerState {
-  const _$TimerStateImpl({this.currentTime = '0:00', this.playPushed = false});
+  const _$TimerStateImpl({this.currentTime = '01:00', this.playPushed = false});
 
   @override
   @JsonKey()

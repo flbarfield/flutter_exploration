@@ -10,7 +10,7 @@ class TimerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<TimerCubit>(
       create: (_) => TimerCubit(),
-      child: TimerView(),
+      child: const TimerView(),
     );
   }
 }
